@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Driver Payroll Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Driver Payroll System</h1>
+
+    <!-- Tab Navigation -->
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'ManageDrivers')">Manage Drivers</button>
+        <button class="tablinks" onclick="openTab(event, 'CalculatePay')">Calculate Pay</button>
+        <button class="tablinks" onclick="openTab(event, 'DriverInfo')">Driver Information</button>
+    </div>
+
+    <!-- Driver Management Tab -->
+    <div id="ManageDrivers" class="tabcontent">
+        <h2>Add Driver</h2>
+        <form id="addDriverForm">
+            <input type="text" id="driverName" placeholder="Driver's Name" required>
+            <input type="number" id="basePay" placeholder="Base Pay" required>
+            <input type="number" id="packageThreshold" placeholder="Package Threshold" required>
+            <button type="button" onclick="addDriver()">Add Driver</button>
+        </form>
+        <div id="driverEditSection">
+            <h2>Edit or Delete Drivers</h2>
+            <select id="editDriverDropdown"></select>
+            <button onclick="editSelectedDriver()">Edit Selected Driver</button>
+            <button onclick="deleteSelectedDriver()">Delete Selected Driver</button>
+        </div>
+        <table id="driverListTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Base Pay</th>
+                    <th>Package Threshold</th>
+                </tr>
+            </thead>
+            <tbody id="driverListBody">
+                <!-- Driver information rows will go here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Calculate Pay Tab -->
+    <div id="CalculatePay" class="tabcontent">
+        <h2>Calculate Daily Pay</h2>
+        <select id="daySelect">
+            <option value="">Select a day</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+        </select>
+        <div id="dailyInputs"></div>
+        <button type="button" onclick="calculateDailyPays()">Calculate Daily Pays</button>
+    </div>
+
+    <!-- Driver Information Tab -->
+    <div id="DriverInfo" class="tabcontent">
+        <h2>Driver Pay</h2>
+        <button type="button" onclick="clearPayInfo()">Clear Table</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Driver</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Total Weekly Pay</th>
+                    <th>Average Hourly Pay</th>
+                </tr>
+            </thead>
+            <tbody id="payInfoBody">
+                <!-- Pay information rows will go here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 18px 20px; /* Increase padding for bigger button */
+    transition: 0.3s;
+    font-size: 20px; /* Increase font size for bigger button */
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 12px 24px; /* Adjust padding for better spacing */
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+/* Enhancements for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 12px; /* Increase padding for better spacing */
+    text-align: left;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Style for inputs within the Calculate Pay tab for consistent styling */
+#CalculatePay input[type='number'] {
+    width: 8%; /* Adjust the width as needed */
+    padding: 10px; /* Increase padding for better spacing */
+}
+
+/* Style for the daily input container within the Calculate Pay tab */
+#CalculatePay .daily-input-container {
+    display: flex;
+    flex-direction: column; /* Change flex-direction to column */
+    align-items: flex-start; /* Align items to the start */
+    margin-bottom: 30px; /* Increase margin-bottom for more spacing between drivers */
+}
+
+/* Style for labels within the daily input container to organize them in a row */
+#CalculatePay .daily-input-container label {
+    margin-bottom: 10px; /* Add margin-bottom for space between each driver's name and input boxes */
+    margin-right: 30px; /* Adjust margin-right for space between label and input */
+}
+
+
+/* Adjustments for individual input fields to make them appear side by side */
+#CalculatePay .daily-input-container input[type='number'] {
+    width: 12%; /* Adjust the width as needed */
+    padding: 10px;
+    margin-right: 30px; /* Increase margin-right for more space between inputs */
+}
