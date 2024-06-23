@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Driver Payroll Calculator</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 </head>
 <body>
     <h1>Driver Payroll System</h1>
@@ -48,6 +49,10 @@
     <!-- Calculate Pay Tab -->
     <div id="CalculatePay" class="tabcontent">
         <h2>Calculate Daily Pay</h2>
+    
+        <input type="file" id="fileInput" accept=".xlsx" />
+        <button onclick="importData()">Import Data</button>
+
         <select id="daySelect">
             <option value="">Select a day</option>
             <option value="Saturday">Saturday</option>
