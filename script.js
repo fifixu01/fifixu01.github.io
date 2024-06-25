@@ -223,61 +223,61 @@ function clearInputs() {
     document.getElementById('packageThreshold').value = '';
 }
 
-function importData() {
-    const fileInput = document.getElementById('fileInput');
-    const file = fileInput.files[0];
-    if (!file) {
-        alert('Please select a file first.');
-        return;
-    }
+// function importData() {
+//     const fileInput = document.getElementById('fileInput');
+//     const file = fileInput.files[0];
+//     if (!file) {
+//         alert('Please select a file first.');
+//         return;
+//     }
 
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const data = new Uint8Array(event.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
+//     const reader = new FileReader();
+//     reader.onload = function(event) {
+//         const data = new Uint8Array(event.target.result);
+//         const workbook = XLSX.read(data, { type: 'array' });
 
-        // Assuming the data is in the first sheet
-        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
-        const sheetData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+//         // Assuming the data is in the first sheet
+//         const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+//         const sheetData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
 
-        // Process the sheet data
-        processSheetData(sheetData);
-    };
+//         // Process the sheet data
+//         processSheetData(sheetData);
+//     };
 
-    reader.readAsArrayBuffer(file);
-}
+//     reader.readAsArrayBuffer(file);
+// }
 
-function processSheetData(sheetData) {
-    const daySelect = document.getElementById('daySelect').value;
-    const dayIndex = daysOfWeek.indexOf(daySelect);
+// function processSheetData(sheetData) {
+//     const daySelect = document.getElementById('daySelect').value;
+//     const dayIndex = daysOfWeek.indexOf(daySelect);
 
-    if (dayIndex === -1) {
-        alert('Please select a valid day.');
-        return;
-    }
+//     if (dayIndex === -1) {
+//         alert('Please select a valid day.');
+//         return;
+//     }
 
-    // Assuming the first row contains headers and the data starts from the second row
-    for (let i = 1; i < sheetData.length; i++) {
-        const row = sheetData[i];
+//     // Assuming the first row contains headers and the data starts from the second row
+//     for (let i = 1; i < sheetData.length; i++) {
+//         const row = sheetData[i];
 
-        // Assuming the columns are: Driver Name, Stops, Hours
-        const driverName = row[0];
-        const stops = row[1];
-        const hours = row[2];
+//         // Assuming the columns are: Driver Name, Stops, Hours
+//         const driverName = row[0];
+//         const stops = row[1];
+//         const hours = row[2];
 
-        const driver = drivers.find(d => d.name === driverName);
-        if (driver) {
-            driver.dailyPays[dayIndex] = driver.basePay + (stops > driver.threshold ? (stops - driver.threshold) * 1 : 0);
-            driver.hoursWorked += hours;
-            driver.weeklyPay = driver.dailyPays.reduce((acc, curr) => acc + curr, 0);
-            driver.payPerHour = driver.hoursWorked > 0 ? driver.weeklyPay / driver.hoursWorked : 0;
-        }
-    }
+//         const driver = drivers.find(d => d.name === driverName);
+//         if (driver) {
+//             driver.dailyPays[dayIndex] = driver.basePay + (stops > driver.threshold ? (stops - driver.threshold) * 1 : 0);
+//             driver.hoursWorked += hours;
+//             driver.weeklyPay = driver.dailyPays.reduce((acc, curr) => acc + curr, 0);
+//             driver.payPerHour = driver.hoursWorked > 0 ? driver.weeklyPay / driver.hoursWorked : 0;
+//         }
+//     }
 
-    updatePayInfoTable();
-    savePayInfoToLocalStorage();
-    alert('Data imported successfully.');
-}
+//     updatePayInfoTable();
+//     savePayInfoToLocalStorage();
+//     alert('Data imported successfully.');
+// }
 
 window.onload = function() {
     loadDriversFromLocalStorage();
