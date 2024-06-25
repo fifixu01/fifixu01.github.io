@@ -172,7 +172,8 @@ function updatePayInfoTable() {
     const tableBody = document.getElementById('payInfoBody');
     tableBody.innerHTML = '';
 
-    let totalWeeklyPay = 0; 
+    let totalWeeklyPay = 0;
+    let routesPerDay = Array(7).fill(0); // Initialize an array to hold the count of routes per day
 
     drivers.forEach((driver, index) => {
         let row = tableBody.rows[index];
@@ -186,6 +187,9 @@ function updatePayInfoTable() {
 
         daysOfWeek.forEach((day, dayIndex) => {
             row.cells[dayIndex + 1].textContent = `$${driver.dailyPays[dayIndex].toFixed(0)}`;
+            if (driver.dailyPays[dayIndex] > 0) {
+                routesPerDay[dayIndex]++; // Count the number of routes for each day
+            }
         });
 
         row.cells[8].textContent = `$${driver.weeklyPay.toFixed(0)}`; // Weekly pay
@@ -194,8 +198,8 @@ function updatePayInfoTable() {
         totalWeeklyPay += driver.weeklyPay;
     });
 
-    // Add a new row at the end for the total of all weekly pays
-    let totalRow = tableBody.insertRow(-1);
+    // Add a new row for the total of all weekly pays
+    let totalRow = tableBody.insertRow();
     totalRow.insertCell(0).textContent = "Total Weekly Pay Across All Drivers";
     totalRow.insertCell(1).setAttribute("colspan", "7");  // Span across the day columns
     totalRow.cells[1].style.textAlign = "right";  // Align text to the right for better readability
@@ -203,6 +207,15 @@ function updatePayInfoTable() {
     let totalPayCell = totalRow.insertCell(2);
     totalPayCell.textContent = `$${totalWeeklyPay.toFixed(0)}`;
     totalPayCell.colSpan = "2";  // Span the last two columns (Total Weekly Pay and Average Hourly Pay)
+
+    // Add a new row for the routes per day
+    let routesRow = tableBody.insertRow();
+    routesRow.insertCell(0).textContent = "Routes per Day";
+    daysOfWeek.forEach((day, dayIndex) => {
+        routesRow.insertCell(dayIndex + 1).textContent = routesPerDay[dayIndex];
+    });
+    routesRow.insertCell(8).textContent = ""; // Empty cell for total weekly pay
+    routesRow.insertCell(9).textContent = ""; // Empty cell for average hourly pay
 }
 
 
