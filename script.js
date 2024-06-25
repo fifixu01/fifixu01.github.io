@@ -136,7 +136,7 @@ function displayDriverDailyInputs() {
 function calculateDailyPays() {
     const selectedDay = document.getElementById('daySelect').value;
     const dayIndex = daysOfWeek.indexOf(selectedDay);
-    
+
     if (dayIndex === -1) {
         console.error("No day selected");
         return;
@@ -151,11 +151,13 @@ function calculateDailyPays() {
 
         let dailyPay = 0;
         if (packages > 0) {
-            dailyPay = driver.basePay + (packages > driver.threshold ? (packages - driver.threshold) * 1 : 0); // Assuming $1.5 per package above threshold
+            dailyPay = driver.basePay + (packages > driver.threshold ? (packages - driver.threshold) * 1 : 0); // Assuming $1 per package above threshold
         }
 
         driver.dailyPays[dayIndex] = dailyPay;
         driver.hoursWorked += hours; // Accumulate total hours worked in the week
+        driver.stops = driver.stops || Array(7).fill(0); // Initialize stops array if not already initialized
+        driver.stops[dayIndex] = packages; // Store the stops for the selected day
 
         // Update weekly pay and average pay per hour
         driver.weeklyPay = driver.dailyPays.reduce((acc, curr) => acc + curr, 0);
@@ -174,6 +176,7 @@ function updatePayInfoTable() {
 
     let totalWeeklyPay = 0;
     let routesPerDay = Array(7).fill(0); // Initialize an array to hold the count of routes per day
+    let totalStopsPerDay = Array(7).fill(0); // Initialize an array to hold the total stops per day
 
     drivers.forEach((driver, index) => {
         let row = tableBody.rows[index];
@@ -190,6 +193,9 @@ function updatePayInfoTable() {
             if (driver.dailyPays[dayIndex] > 0) {
                 routesPerDay[dayIndex]++; // Count the number of routes for each day
             }
+            // Assuming you have a way to get the stops for each day (e.g., driver.stops[dayIndex])
+            // You need to track stops delivered in a similar way to dailyPays
+            totalStopsPerDay[dayIndex] += driver.stops ? driver.stops[dayIndex] || 0 : 0;
         });
 
         row.cells[8].textContent = `$${driver.weeklyPay.toFixed(0)}`; // Weekly pay
@@ -216,7 +222,18 @@ function updatePayInfoTable() {
     });
     routesRow.insertCell(8).textContent = ""; // Empty cell for total weekly pay
     routesRow.insertCell(9).textContent = ""; // Empty cell for average hourly pay
+
+    // Add a new row for the average stops per route
+    let avgStopsRow = tableBody.insertRow();
+    avgStopsRow.insertCell(0).textContent = "Avg. stops per route";
+    daysOfWeek.forEach((day, dayIndex) => {
+        const avgStops = routesPerDay[dayIndex] > 0 ? (totalStopsPerDay[dayIndex] / routesPerDay[dayIndex]).toFixed(2) : 0;
+        avgStopsRow.insertCell(dayIndex + 1).textContent = avgStops;
+    });
+    avgStopsRow.insertCell(8).textContent = ""; // Empty cell for total weekly pay
+    avgStopsRow.insertCell(9).textContent = ""; // Empty cell for average hourly pay
 }
+
 
 
 function clearPayInfo() {
