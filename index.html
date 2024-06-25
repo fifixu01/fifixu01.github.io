@@ -69,29 +69,31 @@
     </div>
 
     <!-- Driver Information Tab -->
-    <div id="DriverInfo" class="tabcontent">
-        <h2>Driver Pay</h2>
-        <button type="button" onclick="clearPayInfo()">Clear Table</button>
-        <table>
-            <thead>
-                <tr>
-                    <th>Driver</th>
-                    <th>Saturday</th>
-                    <th>Sunday</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Total Weekly Pay</th>
-                    <th>Average Hourly Pay</th>
-                </tr>
-            </thead>
-            <tbody id="payInfoBody">
-                <!-- Pay information rows will go here -->
-            </tbody>
-        </table>
-    </div>
+<div id="DriverInfo" class="tabcontent">
+    <h2>Driver Pay</h2>
+    <button type="button" onclick="clearPayInfo()">Clear Table</button>
+    <button type="button" id="exportTableButton" style="float: right;" onclick="exportTableToExcel('payInfoTable', 'Driver_Pay')">Export Table</button>
+    <table id="payInfoTable">
+        <thead>
+            <tr>
+                <th>Driver</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Total Weekly Pay</th>
+                <th>Average Hourly Pay</th>
+            </tr>
+        </thead>
+        <tbody id="payInfoBody">
+            <!-- Pay information rows will go here -->
+        </tbody>
+    </table>
+</div>
+
 
     <script src="script.js"></script>
 </body>

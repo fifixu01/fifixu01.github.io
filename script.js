@@ -309,6 +309,19 @@ function clearInputs() {
 //     alert('Data imported successfully.');
 // }
 
+function exportTableToExcel(tableId, defaultFilename = 'Driver_Pay') {
+    const filename = prompt('Enter the filename for the Excel file:', defaultFilename);
+    if (!filename) {
+        alert('Export cancelled. Please provide a valid filename.');
+        return;
+    }
+    
+    const table = document.getElementById(tableId);
+    const workbook = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+    const excelFileName = `${filename}.xlsx`;
+    XLSX.writeFile(workbook, excelFileName);
+}
+
 window.onload = function() {
     loadDriversFromLocalStorage();
     loadPayInfoFromLocalStorage();
